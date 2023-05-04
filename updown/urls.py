@@ -19,14 +19,10 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 
-def trigger_error(request):
-    division_by_zero = 1 / 0
-
 urlpatterns = [
     path('', include('mainapp.urls')),
     path('login/', auth_views.LoginView.as_view(template_name="mainapp/login.html"), name='login'),
     path('admin/', admin.site.urls),
-    path('sentry-debug/', trigger_error),
 ]
 
 if settings.DEBUG:
