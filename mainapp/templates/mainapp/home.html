@@ -1,0 +1,75 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View your images</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <script src="https://kit.fontawesome.com/0452d4c8c4.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <style>
+        body{
+            font-family: 'Montserrat';
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+          <div class="container">
+            <a class="navbar-brand mr-4" href="{% url 'home' %}"><img src="{% static 'mainapp/logo.png' %}" style="width: 10%;"></a>
+            </button>
+            <div class="navbar-nav mr-auto">
+                <a class="nav-item nav-link" href="{% url 'home' %}">View</a>
+                <a class="nav-item nav-link" href="{% url 'upload-image' %}">Upload</a>
+              </div>
+          </div>
+        </nav>
+    </header>
+
+    <div class="container-fluid px-0" id="main-container" style="margin-top: 90px;">
+        <div class="container p-0">
+            <div class="py-4 mt-4" style="margin-left: auto;margin-right: auto;">
+                <div class="row">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                        <center>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <div class="alert alert-success" role="alert">{{ message }}</div>
+                                {% endfor %}
+                            {% else %}
+                                <h1>
+                                    <b><u>Your Images</u></b>
+                                </h1>
+                            {% endif %}
+                        </center>
+                    </div>
+                    <div class="col-2"></div>
+                </div>
+                <div class="row" id="categories-box">
+                    {% for my_image in my_images %}
+                        <div class="col-3 mb-2">
+						    <a title="View image of {{ my_image.name }}" href="{{ my_image.up_img.url }}" style="margin: 5px;">
+                                <div class="card" style="background-image: url('{{ my_image.up_img.url }}');height: 300px;width: auto;background-position: center;background-size: contain;background-repeat: no-repeat;"></div>
+                            </a>
+							    <!-- <a title="View image of {{ my_image.name }}" href="{{ my_image.up_img.url }}"><img class="card-img-top" src="{{ my_image.up_img.url }}" alt="Card image cap" style="width:auto ;height: auto;object-fit: cover; max-width: 300px;max-height: 300px;"></a> -->
+						    <!-- </div> -->
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-6"><small class="card-text">{{ my_image.name }}</small></div>
+                                    <div class="col-6" style="text-align: center;"><a title="Download image of {{ my_image.name }}" href="{{ my_image.up_img.url }}" download="{{ my_image.name }}.png"><i class="fa-solid fa-download fa-xl"></i></a></div>
+                                </div>
+                            </div>
+					    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
+</body>
+</html>
